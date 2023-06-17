@@ -42,7 +42,7 @@ model Transcript {
   id         String   @id @default(cuid())
   studentId  String
   courseName String
-  grade      String
+  grade      Float
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   student    Student  @relation(fields: [studentId], references: [id])

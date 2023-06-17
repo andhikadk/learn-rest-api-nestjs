@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto, UpdateStudentDto } from './dto';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Controller('students')
 export class StudentsController {
