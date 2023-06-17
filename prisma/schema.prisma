@@ -11,24 +11,39 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  email     String     @unique
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
   hash      String
-  firstName String?
-  lastName  String?
-  bookmarks Bookmark[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Bookmark {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  title       String
-  description String?
-  link        String
-  userId      String
+model Major {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  students  Student[]
+}
 
-  user User @relation(fields: [userId], references: [id])
+model Student {
+  id          String       @id @default(cuid())
+  name        String
+  gpa         Float        @default(0)
+  majorId     String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  major       Major        @relation(fields: [majorId], references: [id])
+  transcripts Transcript[]
+}
+
+model Transcript {
+  id         String   @id @default(cuid())
+  studentId  String
+  courseName String
+  grade      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  student    Student  @relation(fields: [studentId], references: [id])
 }
